@@ -3,7 +3,8 @@ package binaryTree;
 /*
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
 
-According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between
+two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
 
 
 
@@ -26,7 +27,7 @@ Output: 1
 Logic:
 
 The value should be in left subtree or right subTree. Find out where the value is. If the value is in the
-left side, return the nearest leftsubtree, and so on.
+left-side, return the nearest left-subtree, and so on.
  */
 public class LowestCommonAncestor {
 

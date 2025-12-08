@@ -131,7 +131,7 @@ class CloneBinaryTree {
         }
     }
 
-    // 👇 Added only for testing
+    // Added only for testing
     public static void printTree(NodeCopy root, Set<NodeCopy> visited) {
         if (root == null || visited.contains(root)) return;
         visited.add(root);
@@ -146,7 +146,7 @@ class CloneBinaryTree {
         printTree(root.right, visited);
     }
 
-    // 👇 Minimal PSVM to test your logic
+
     public static void main(String[] args) {
         // Create a sample binary tree:
         //       1
