@@ -37,33 +37,34 @@ public class GoodNode {
     }
 
     public int getTotalGoodNodesIteration(TreeNode root) {
-        int maxSoFar = Integer.MIN_VALUE;
-        int totalCount = 0;
-        if (root == null)
-            return totalCount;
+        if (root == null) return 0;
+
+        int count = 0;
+
         Queue<Tuple> queue = new LinkedList<>();
-        Tuple currTuple = new Tuple(root, maxSoFar);
-        queue.add(currTuple);
+        queue.offer(new Tuple(root, root.value));  // max on the path starts at root.value
+
         while (!queue.isEmpty()) {
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                Tuple curr = queue.poll();
-                if(curr == null)
-                    continue;
-                int maxValue = curr.value;
-                if (curr.root.value >= maxValue) {
-                    totalCount++;
-                    maxValue = curr.root.value;
-                }
-                if (curr.root.left != null)
-                    queue.add(new Tuple(curr.root.left, maxValue));
-                if (curr.root.right != null)
-                    queue.add(new Tuple(curr.root.right, maxValue));
+            Tuple curr = queue.poll();
+            TreeNode node = curr.root;
+            int maxSoFar = curr.value;
+
+            // Check if this node is "good"
+            if (node.value >= maxSoFar) {
+                count++;
+                maxSoFar = node.value;  // update max for children
+            }
+
+            // Push children with updated max
+            if (node.left != null) {
+                queue.offer(new Tuple(node.left, maxSoFar));
+            }
+            if (node.right != null) {
+                queue.offer(new Tuple(node.right, maxSoFar));
             }
         }
 
-        return totalCount;
-
+        return count;
     }
 
 

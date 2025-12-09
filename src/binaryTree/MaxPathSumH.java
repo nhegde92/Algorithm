@@ -52,7 +52,7 @@ public class MaxPathSumH {
         int currNodeValue = node.value;
         int left = getMaxPathSum(node.left);
         int right = getMaxPathSum(node.right);
-        // propogate the max of left or right child to the top.
+        // propagate the max of left or right child to the top.
         int childMax = Math.max(left, right);
         //return the max of nodes children plus currNode or currNode to top
         int totalMax = Math.max(childMax + currNodeValue, currNodeValue);
