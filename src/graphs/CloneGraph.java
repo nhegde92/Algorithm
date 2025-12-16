@@ -85,14 +85,12 @@ public class CloneGraph {
 
             for (int i = 0; i < currNode.neighbors.size(); i++) {
                 CloneNode neighbor = currNode.neighbors.get(i);
-                if (map.containsKey(neighbor)) { // Node has been in queue alerady
-                    newNode.neighbors.add(map.get(neighbor));
-                } else { //Node has not been in queue. put it in map and queue.
+                if (!map.containsKey(neighbor)) { //Node has not been in queue. put it in map and queue.
                     CloneNode newNeighbor = new CloneNode(neighbor.val);
                     map.put(neighbor, newNeighbor);
                     queue.add(neighbor);
-                    newNode.neighbors.add(newNeighbor);
                 }
+                newNode.neighbors.add(map.get(neighbor));
             }
         }
     }
