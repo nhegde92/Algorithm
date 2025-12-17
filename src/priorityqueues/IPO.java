@@ -51,40 +51,53 @@ public class IPO {
         }
     }
 
-    public static int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
-        if (k == 0)
-            return 0;
-        PriorityQueue<Project> heap = new PriorityQueue<>((a, b) -> b.profit - a.profit);
+    public static int findMaximizedCapital(int k, int initialCapital, int[] profits, int[] capital) {
+
+        // Max-heap based on project profit
+        PriorityQueue<Project> maxProfitHeap =
+                new PriorityQueue<>((a, b) -> b.profit - a.profit);
+
+        // Combine capital and profit into Project objects
         Project[] projects = new Project[capital.length];
         for (int i = 0; i < capital.length; i++) {
             projects[i] = new Project(capital[i], profits[i]);
         }
+
+        // Sort projects by required capital (ascending)
         Arrays.sort(projects, (a, b) -> a.capital - b.capital);
 
-        int i = 0;
-        while (k > 0) {
-            while (i < projects.length) {
-                if (projects[i].capital > w)
-                    break;
+        int currentCapital = initialCapital;
+        int projectIndex = 0;
 
-                heap.offer(projects[i]);
-                i++;
+        // Select up to k projects
+        for (int projectsTaken = 0; projectsTaken < k; projectsTaken++) {
+
+            // Add all projects we can afford to the heap
+            while (projectIndex < projects.length &&
+                    projects[projectIndex].capital <= currentCapital) {
+                maxProfitHeap.offer(projects[projectIndex]);
+                projectIndex++;
             }
 
-            if (heap.size() == 0)
-                return w;
-            k--;
-            w = w + heap.poll().profit;
+            // If no affordable projects remain, stop early
+            if (maxProfitHeap.isEmpty()) {
+                return currentCapital;
+            }
+
+            // Choose the most profitable available project
+            currentCapital += maxProfitHeap.poll().profit;
         }
-        return w;
+
+        return currentCapital;
     }
+
 
     public static void main(String[] args) {
         int k = 3;
         int w = 0;
-        int[] profits = new int[]{1,2,3};
-        int[] capital = new int[]{0,1,2};
-        System.out.println(findMaximizedCapital(k,w,profits,capital));
+        int[] profits = new int[]{1, 2, 3};
+        int[] capital = new int[]{0, 1, 2};
+        System.out.println(findMaximizedCapital(k, w, profits, capital));
     }
 }
 
