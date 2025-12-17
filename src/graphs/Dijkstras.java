@@ -31,6 +31,7 @@ public class Dijkstras {
 
     /**
      * Dijkstra's Algorithm
+     *
      * @param n     number of vertices
      * @param edges edge list: [from, to, weight]
      * @param src   source vertex

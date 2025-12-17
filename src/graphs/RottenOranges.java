@@ -66,7 +66,7 @@ public class RottenOranges {
                     if (newRow < 0 || newCol < 0 || newRow >= grid.length || newCol >= grid[0].length || grid[newRow][newCol] != 1)
                         continue;
                     grid[newRow][newCol] = 2; // change the state or use vis
-                    totalOnes--; //reuce it here as opposed to at the top
+                    totalOnes--; //reduce it here as opposed to at the top
                     queue.add(new int[]{newRow, newCol});
                     rottedThisMinute = true; // this will if not always add extra 1
                 }

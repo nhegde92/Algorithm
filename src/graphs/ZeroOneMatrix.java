@@ -28,7 +28,7 @@ import java.util.Queue;
 
 /*
 Note in this problem it does not make sense to put 1. The reason being its tricky to stop as soon as one 0
-is encountered. Also BFS is preferred again dist from nearest 0.
+is encountered. Also, BFS is preferred again dist from nearest 0.
  */
 public class ZeroOneMatrix {
     public int[][] updateMatrix(int[][] mat) {

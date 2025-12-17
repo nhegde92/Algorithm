@@ -5,8 +5,10 @@ You are given an m x n matrix board containing letters 'X' and 'O', capture regi
 
 Connect: A cell is connected to adjacent cells horizontally or vertically.
 Region: To form a region connect every 'O' cell.
-Surround: The region is surrounded with 'X' cells if you can connect the region with 'X' cells and none of the region cells are on the edge of the board.
-To capture a surrounded region, replace all 'O's with 'X's in-place within the original board. You do not need to return anything.
+Surround: The region is surrounded with 'X' cells if you can connect the region with 'X' cells and
+none of the region cells are on the edge of the board.
+To capture a surrounded region, replace all 'O's with 'X's in-place within the original board.
+ You do not need to return anything.
 
 
 
@@ -30,15 +32,20 @@ Output: [["X"]]
 
 */
 
-/* Here the idea is anything that anything connected to the wall cannot be conqured. Instead of preocessing every Os just process the ones at the corners. Then mark all the nodes which for a
+/* Here the idea is anything that anything connected to the wall cannot be conquered. Instead of
+processing every Os just process the ones at the corners. Then mark all the nodes which for a
 boundary. The logic is every other O which is not in this boundary will become X
 
-The core idea behind solving the Surrounded Regions problem efficiently is to recognize that any 'O' connected to the border cannot be surrounded,
-and therefore should not be flipped. Instead of checking every 'O' individually, we only process 'O's on the border and mark all 'O's connected to them
-as safe (typically using BFS or DFS), temporarily replacing them with a marker like 'T'. After marking, we scan the entire board: all remaining 'O's
- (which are not connected to the border and thus are surrounded) are flipped to 'X', while the 'T' cells are reverted back to 'O'. This approach
- is efficient because it limits processing to only the relevant regions, avoids unnecessary recursion, and works entirely in-place without extra memory
- for a visited array.
+The core idea behind solving the Surrounded Regions problem efficiently is to recognize that any 'O'
+connected to the border cannot be surrounded,
+and therefore should not be flipped. Instead of checking every 'O' individually, we only process 'O's
+on the border and mark all 'O's connected to them
+as safe (typically using BFS or DFS), temporarily replacing them with a marker like 'T'. After marking,
+ we scan the entire board: all remaining 'O's
+ (which are not connected to the border and thus are surrounded) are flipped to 'X', while the
+ 'T' cells are reverted back to 'O'. This approach
+ is efficient because it limits processing to only the relevant regions, avoids unnecessary recursion,
+ and works entirely in-place without extra memory for a visited array.
 */
 public class SorroundRegions {
     int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
