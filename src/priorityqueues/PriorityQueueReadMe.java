@@ -12,6 +12,7 @@ size()	O(1)
 isEmpty()	O(1)
 contains() O(n)
 toArray() O(n)
+remove(specificElement)  O(n)
 
 
 A Priority Queue in Java is a data structure that stores elements in a way that the element with
