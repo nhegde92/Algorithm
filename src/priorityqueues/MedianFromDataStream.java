@@ -30,6 +30,7 @@ medianFinder.addNum(2);    // arr[1, 2, 3]
 medianFinder.findMedian(); // return 2.0
 */
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /*
@@ -64,67 +65,39 @@ easier way to read perhaps
         }
     }
  */
+
+
 public class MedianFromDataStream {
 
-    PriorityQueue<Integer> lowerHalf;
-    PriorityQueue<Integer> upperHalf;
+    private PriorityQueue<Integer> firstHalfMaxHeap;
+    private PriorityQueue<Integer> secondHalfMinHeap;
 
-    // 🔧 Fix: Constructor name should match class name
     public MedianFromDataStream() {
-        lowerHalf = new PriorityQueue<>((a, b) -> b - a); // max heap
-        upperHalf = new PriorityQueue<>(); // min heap
+        firstHalfMaxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+        secondHalfMinHeap = new PriorityQueue<>();
     }
 
     public void addNum(int num) {
-        int lowerSize = lowerHalf.size();
-        int upperSize = upperHalf.size();
-
-        // Base case
-        if (lowerSize == 0) {
-            lowerHalf.add(num);
-            return;
-        }
-
-        // Base case
-        if (upperSize == 0) { // important Rebalance
-            upperHalf.add(num);
-            if (upperHalf.peek() < lowerHalf.peek()) {
-                lowerHalf.add(upperHalf.poll());
-                upperHalf.add(lowerHalf.poll());
-            }
-            return;
-        }
-
-        // Place in the correct bucket
-        if (num > upperHalf.peek()) {
-            upperHalf.add(num);
-            upperSize = upperHalf.size(); // imp update size
+        // 1. Add to appropriate heap
+        if (firstHalfMaxHeap.isEmpty() || num <= firstHalfMaxHeap.peek()) {
+            firstHalfMaxHeap.add(num);
         } else {
-            lowerHalf.add(num);
-            lowerSize = lowerHalf.size(); // imp update size
+            secondHalfMinHeap.add(num);
         }
 
-        // check if rebalance is needed
-        if (Math.abs(lowerSize - upperSize) < 2)
-            return;
-
-        if (upperSize > lowerSize)
-            lowerHalf.add(upperHalf.poll());
-        else
-            upperHalf.add(lowerHalf.poll());
+        // 2. Rebalance sizes
+        if (firstHalfMaxHeap.size() > secondHalfMinHeap.size() + 1) {
+            secondHalfMinHeap.add(firstHalfMaxHeap.poll());
+        } else if (secondHalfMinHeap.size() > firstHalfMaxHeap.size()) {
+            firstHalfMaxHeap.add(secondHalfMinHeap.poll());
+        }
     }
 
     public double findMedian() {
-        int lowerSize = lowerHalf.size();
-        int upperSize = upperHalf.size();
-        if (lowerSize == 0 && upperSize == 0)
-            return 0;
-        if (lowerSize == upperSize)
-            return (upperHalf.peek() + lowerHalf.peek()) / 2.0;
-        if (upperSize > lowerSize)
-            return upperHalf.peek();
-        else
-            return lowerHalf.peek();
+        if (firstHalfMaxHeap.size() == secondHalfMinHeap.size()) {
+            return (firstHalfMaxHeap.peek() + secondHalfMinHeap.peek()) / 2.0;
+        }
+        return (double) firstHalfMaxHeap.peek();
     }
 
     // ✅ Main function to test
@@ -139,3 +112,4 @@ public class MedianFromDataStream {
         }
     }
 }
+

@@ -33,6 +33,7 @@ Constraints:
 /*
 The idea to come up with O(n) solution is not intuitive. What is intuitive is however to use heap O(nlogn)
 
+O(n)
 Dequeue: We use DeQueue for this approach. The Dequeue is always a "monotonically decreasing queue". The first
 element is always the maximum element. Furthermore, we pop from beginning if the window size is greater than k.
 
@@ -44,7 +45,7 @@ i = 3. dq: 1,2,3. output nums[left] = nums[1] = 2
 i = 4 left is out of index, so 1 is removed. Furthermore, we 2, 3 because nums[2] or nums[3] < nums[4]. The queue needs to be strictly decreasing.
 
 
- Heap approach.
+ Heap approach.O(nlogn)
  We use max heap. We throw in the element value and element index to the heap. The heap keeps the max element at the top
  At each step we add the element into heap.
  We see if the peak element is with in the bounds. If so keep it if not remove it
