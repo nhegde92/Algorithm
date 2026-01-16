@@ -2,7 +2,9 @@ package arrays;
 /*
 Given an array of integers nums, return the length of the longest consecutive sequence of elements that can be formed.
 
-A consecutive sequence is a sequence of elements in which each element is exactly 1 greater than the previous element. The elements do not have to be consecutive in the original array.
+A consecutive sequence is a sequence of elements in which each element is exactly 1 greater than
+
+the previous element. The elements do not have to be consecutive in the original array.
 
 You must write an algorithm that runs in O(n) time.
 
@@ -25,7 +27,7 @@ Constraints:
  */
 
 /*
-lets take an example  [2,20,4,10,3,4,5]
+let's take an example  [2,20,4,10,3,4,5]
 
 we know 2 is the start of the sequence, ( 1 is not present )
 20 is the start of the sequence because 19 is not present

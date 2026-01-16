@@ -59,6 +59,13 @@ Then, reversing each row gives the final rotated matrix:
 
 This approach is efficient and works in-place without using extra memory for another matrix.
 
+
+Gotchas
+Learn how to transpose.
+ for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < i; j++) {
+            for (int j = 0; j < i; j++) {..
+
  */
 public class RotateImage {
     public void rotate(int[][] matrix) {

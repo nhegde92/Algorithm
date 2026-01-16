@@ -49,9 +49,15 @@ Anagrams may visually look the same but differ in underlying encoding due to com
 Example:
 
 "é" == "e\u0301" (e + combining acute accent)
-
-
 In such cases, you'll need to normalize strings before sorting to make sure they match.
+
+  charMap[c-'a']++;  // a = 97 b = 98 and so on b-a = 1 so charMap[1]++ means there is one b
+
+similarly
+char c = '7';
+int value = c - '0'; = 7  '0' → 48  '7' → 55  55 - 48 = 7
+
+
  */
 
 import java.util.ArrayList;

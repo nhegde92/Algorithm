@@ -55,6 +55,7 @@ public class MinimumWindowSubstring {
             if (tCount.containsKey(c)) {
                 sCount.put(c, sCount.getOrDefault(c, 0) + 1);
 
+                //Only increment if the characters are equal
                 if (sCount.get(c).equals(tCount.get(c))) {
                     have++;
                 }
@@ -70,6 +71,7 @@ public class MinimumWindowSubstring {
                 char leftChar = s.charAt(left);
                 if (tCount.containsKey(leftChar)) {
                     sCount.put(leftChar, sCount.get(leftChar) - 1);
+                    // reduce the have while shrinking the window if match found
                     if (sCount.get(leftChar) < tCount.get(leftChar)) {
                         have--;
                     }

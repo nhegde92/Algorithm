@@ -3,7 +3,9 @@ package SlidingWindow;
 /*
 
 
-You are given an array of integers nums and an integer k. There is a sliding window of size k that starts at the left edge of the array. The window slides one position to the right until it reaches the right edge of the array.
+You are given an array of integers nums and an integer k.
+There is a sliding window of size k that starts at the left edge of the array.
+The window slides one position to the right until it reaches the right edge of the array.
 
 Return a list that contains the maximum element in the window at each step.
 
@@ -42,7 +44,8 @@ i = 0 dq: 0
 i = 1 dq: 1 : 2>1 so pop 1. Note we store only the indexes in Dequeue
 i = 2 dq: 1,2 output nums[left] = nums[1] = 2.   2,1 is decreasing so okay.
 i = 3. dq: 1,2,3. output nums[left] = nums[1] = 2
-i = 4 left is out of index, so 1 is removed. Furthermore, we 2, 3 because nums[2] or nums[3] < nums[4]. The queue needs to be strictly decreasing.
+i = 4 left is out of index, so 1 is removed. Furthermore, we 2, 3 because nums[2] or nums[3] < nums[4].
+The queue needs to be strictly decreasing.
 
 
  Heap approach.O(nlogn)
@@ -50,6 +53,9 @@ i = 4 left is out of index, so 1 is removed. Furthermore, we 2, 3 because nums[2
  At each step we add the element into heap.
  We see if the peak element is with in the bounds. If so keep it if not remove it
  At each step when pointer is > k store the result.
+
+ Why nlogn and not nlogk. Because the heap can contain atmost n elements. We only remove if the peek is out of range.
+ If the element is outside the window and not in peak, it stays in PQ
  */
 
 
@@ -60,6 +66,10 @@ public class MaximumWindowSubstring {
     public int[] getMaxWindowSubStringQueue(int[] nums, int k) {
         Deque<Integer> dq = new LinkedList<>();
         int n = nums.length;
+        /*
+        First window starts at index 0
+        Last window starts at index n - k. Hence, n-k+1
+         */
         int[] output = new int[n - k + 1];
         int index = 0;
         int right = 0;
@@ -90,7 +100,8 @@ public class MaximumWindowSubstring {
         PriorityQueue<Integer[]> pq = new PriorityQueue<>((a, b) -> b[0] - a[0]);
         for (int right = 0; right < nums.length; right++) {
 
-            //Check if the peek element is in the window size
+            //remove if peak is not in boundary
+            // right - k + 1 is left boundary.
             while (!pq.isEmpty() && pq.peek()[1] < right - k + 1)
                 pq.poll();
             //Add the element into PQ
