@@ -1,7 +1,8 @@
 package priorityqueues;
 
 /*
-The median is the middle value in a sorted list of integers. For lists of even length, there is no middle value, so the median is the mean of the two middle values.
+The median is the middle value in a sorted list of integers. For lists of even length, there is no middle value,
+ so the median is the mean of the two middle values.
 
 For example:
 

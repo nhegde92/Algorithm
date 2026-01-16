@@ -56,24 +56,47 @@ import java.util.*;
 
 public class TopKFrequentlyUsedElements {
 
+    /**
+     * Returns the k most frequent elements from the array.
+     * <p>
+     * Time Complexity: O(n log k)
+     * Space Complexity: O(n + k)
+     */
     public static int[] getTopKElements(int[] nums, int k) {
-        int[] res = new int[k];
-        if (nums.length == k || nums.length == 0)
-            return res;
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+
+        // Edge cases
+        if (nums == null || nums.length == 0 || k == 0) {
+            return new int[0];
         }
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> map.get(a) - map.get(b));
-        for (Integer key : map.keySet()) {
-            pq.add(key);
-            if (pq.size() > k)
-                pq.poll();
+
+        // Step 1: Frequency map
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
         }
-        for (int i = k - 1; i >= 0; i--)
-            res[i] = pq.poll();
-        return res;
+
+        // Step 2: Min-heap based on frequency
+        PriorityQueue<Integer> minHeap =
+                new PriorityQueue<>((a, b) -> freqMap.get(a) - freqMap.get(b));
+
+        // Step 3: Keep heap size <= k
+        for (int key : freqMap.keySet()) {
+            minHeap.offer(key);
+            if (minHeap.size() > k) {
+                minHeap.poll(); // remove least frequent
+            }
+        }
+
+        // Step 4: Build result
+        int[] result = new int[minHeap.size()];
+        int index = result.length - 1;
+        while (!minHeap.isEmpty()) {
+            result[index--] = minHeap.poll();
+        }
+
+        return result;
     }
+
 
     public static int[] getTopUsingBucketSort(int[] nums, int k) {
         int[] res = new int[k];
