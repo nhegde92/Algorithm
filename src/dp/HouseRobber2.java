@@ -26,6 +26,8 @@ Constraints:
 1 <= nums.length <= 100
 0 <= nums[i] <= 100
 
+
+Same as previous problem but max of 0-n-2 and 1 to n-1
  */
 
 
